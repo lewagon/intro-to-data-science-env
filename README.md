@@ -1,6 +1,8 @@
 
 setup environment for the [Introduction to Data Science](https://github.com/lewagon/intro-to-data-science-challenges) challenges
 
+the challenges are served through [mybinder](https://www.notion.so/lewagon/B2U-Intro-to-Data-Science-f88a9af1afff44109bfd3)
+
 # update package version
 
 update the contents of `requirements_raw.txt`, then process `requirements.txt` from a new env:
