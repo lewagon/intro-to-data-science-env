@@ -1,0 +1,20 @@
+
+# link between env and content repos for binder
+nbgitpuller
+
+# offline mode
+jupyter-offlinenotebook
+
+# dataframes
+numpy
+pandas
+
+# viz
+matplotlib
+seaborn
+
+# learning
+sklearn
+
+# request
+urllib3
