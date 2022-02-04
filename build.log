@@ -1,0 +1,375 @@
+Waiting for build to start...
+Picked Git content provider.
+Cloning into '/tmp/repo2dockerlbz81_yf'...
+HEAD is now at 23720f3 Merge pull request #2 from lewagon/sklearn-package-name
+Building conda environment for python=3.7Using PythonBuildPack builder
+Building conda environment for python=3.7Building conda environment for python=3.7Step 1/52 : FROM buildpack-deps:bionic
+ ---> 872a6bfe806a
+Step 2/52 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 18cfc3ad1ba4
+Step 3/52 : RUN apt-get -qq update &&     apt-get -qq install --yes --no-install-recommends locales > /dev/null &&     apt-get -qq purge &&     apt-get -qq clean &&     rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> c86f61c21528
+Step 4/52 : RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen &&     locale-gen
+ ---> Using cache
+ ---> 7727a11db0e7
+Step 5/52 : ENV LC_ALL en_US.UTF-8
+ ---> Using cache
+ ---> 81e0d9abcce4
+Step 6/52 : ENV LANG en_US.UTF-8
+ ---> Using cache
+ ---> 7b1c37890bd5
+Step 7/52 : ENV LANGUAGE en_US.UTF-8
+ ---> Using cache
+ ---> 611932c94ced
+Step 8/52 : ENV SHELL /bin/bash
+ ---> Using cache
+ ---> 797b01ab36b1
+Step 9/52 : ARG NB_USER
+ ---> Using cache
+ ---> 1879eafde07c
+Step 10/52 : ARG NB_UID
+ ---> Using cache
+ ---> 231f9e058663
+Step 11/52 : ENV USER ${NB_USER}
+ ---> Using cache
+ ---> 5c69b65ecfc8
+Step 12/52 : ENV HOME /home/${NB_USER}
+ ---> Using cache
+ ---> 32229e80a4fd
+Step 13/52 : RUN groupadd         --gid ${NB_UID}         ${NB_USER} &&     useradd         --comment "Default user"         --create-home         --gid ${NB_UID}         --no-log-init         --shell /bin/bash         --uid ${NB_UID}         ${NB_USER}
+ ---> Using cache
+ ---> fb1d4df4d942
+Step 14/52 : RUN apt-get -qq update &&     apt-get -qq install --yes --no-install-recommends        less        unzip        > /dev/null &&     apt-get -qq purge &&     apt-get -qq clean &&     rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> b9eb2570d9d8
+Step 15/52 : EXPOSE 8888
+ ---> Using cache
+ ---> 994e32ee62ed
+Step 16/52 : ENV APP_BASE /srv
+ ---> Using cache
+ ---> 849fa47caded
+Step 17/52 : ENV CONDA_DIR ${APP_BASE}/conda
+ ---> Using cache
+ ---> 27d63d2e943f
+Step 18/52 : ENV NB_PYTHON_PREFIX ${CONDA_DIR}/envs/notebook
+ ---> Using cache
+ ---> 45e69b2b6daa
+Step 19/52 : ENV NPM_DIR ${APP_BASE}/npm
+ ---> Using cache
+ ---> 6a84a4d5f2a3
+Step 20/52 : ENV NPM_CONFIG_GLOBALCONFIG ${NPM_DIR}/npmrc
+ ---> Using cache
+ ---> 238f73efdfc8
+Step 21/52 : ENV NB_ENVIRONMENT_FILE /tmp/env/environment.lock
+ ---> Using cache
+ ---> a0d4e26d02b2
+Step 22/52 : ENV MAMBA_ROOT_PREFIX ${CONDA_DIR}
+ ---> Using cache
+ ---> 7e23bb0af978
+Step 23/52 : ENV MAMBA_EXE ${CONDA_DIR}/bin/mamba
+ ---> Using cache
+ ---> 595db06226fd
+Step 24/52 : ENV KERNEL_PYTHON_PREFIX ${NB_PYTHON_PREFIX}
+ ---> Using cache
+ ---> 05a3ab7deb8f
+Step 25/52 : ENV PATH ${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:${PATH}
+ ---> Using cache
+ ---> c8c50f54368b
+Step 26/52 : COPY --chown=1000:1000 build_script_files/-2fusr-2flib-2fpython3-2e8-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-391af5 /etc/profile.d/activate-conda.sh
+ ---> Using cache
+ ---> 30f0b2c4e944
+Step 27/52 : COPY --chown=1000:1000 build_script_files/-2fusr-2flib-2fpython3-2e8-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2epy-2d3-2e7-2elock-4f1154 /tmp/env/environment.lock
+ ---> Using cache
+ ---> 8bdbffac4d59
+Step 28/52 : COPY --chown=1000:1000 build_script_files/-2fusr-2flib-2fpython3-2e8-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dbase-2denv-2ebash-8fbb20 /tmp/install-base-env.bash
+ ---> Using cache
+ ---> 4ab11ccc7bd6
+Step 29/52 : RUN TIMEFORMAT='time: %3R' bash -c 'time /tmp/install-base-env.bash' && rm -rf /tmp/install-base-env.bash /tmp/env
+ ---> Using cache
+ ---> b8c108fd5a7a
+Step 30/52 : RUN mkdir -p ${NPM_DIR} && chown -R ${NB_USER}:${NB_USER} ${NPM_DIR}
+ ---> Using cache
+ ---> 6f7d7567292e
+Step 31/52 : USER root
+ ---> Using cache
+ ---> 076e4d7a840b
+Step 32/52 : ARG REPO_DIR=${HOME}
+ ---> Using cache
+ ---> e3a7af133c08
+Step 33/52 : ENV REPO_DIR ${REPO_DIR}
+ ---> Using cache
+ ---> 8bc5b8a5ab7d
+Step 34/52 : WORKDIR ${REPO_DIR}
+ ---> Using cache
+ ---> a8c4bc81aef6
+Step 35/52 : RUN chown ${NB_USER}:${NB_USER} ${REPO_DIR}
+ ---> Using cache
+ ---> 3c7e444ac2b3
+Step 36/52 : ENV PATH ${HOME}/.local/bin:${REPO_DIR}/.local/bin:${PATH}
+ ---> Using cache
+ ---> af1a026c4fee
+Step 37/52 : ENV CONDA_DEFAULT_ENV ${KERNEL_PYTHON_PREFIX}
+ ---> Using cache
+ ---> d278f19c21a6
+Step 38/52 : COPY --chown=1000:1000 src/requirements.txt ${REPO_DIR}/requirements.txt
+ ---> 67d3df863455
+Step 39/52 : USER root
+ ---> Running in c9509ce89fc8
+Removing intermediate container c9509ce89fc8
+ ---> 5b945d9333eb
+Step 40/52 : COPY --chown=1000:1000 src/ ${REPO_DIR}
+ ---> 7880b8b9e93c
+Step 41/52 : USER ${NB_USER}
+ ---> Running in c3ec9fe7d5a5
+Removing intermediate container c3ec9fe7d5a5
+ ---> aa191c17f213
+Step 42/52 : RUN ${KERNEL_PYTHON_PREFIX}/bin/pip install --no-cache-dir -r "requirements.txt"
+ ---> Running in 7a04a0bfa784
+Requirement already satisfied: jupyter-offlinenotebook==0.2.2 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from -r requirements.txt (line 1)) (0.2.2)
+Collecting matplotlib==3.5.1
+  Downloading matplotlib-3.5.1-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl (11.2 MB)
+Requirement already satisfied: matplotlib-inline==0.1.3 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from -r requirements.txt (line 3)) (0.1.3)
+Collecting nbgitpuller==1.0.2
+  Downloading nbgitpuller-1.0.2-py2.py3-none-any.whl (430 kB)
+Collecting numpy==1.21.5
+  Downloading numpy-1.21.5-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (15.7 MB)
+Collecting pandas==1.3.5
+  Downloading pandas-1.3.5-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.3 MB)
+Collecting scikit-learn==1.0.2
+  Downloading scikit_learn-1.0.2-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (24.8 MB)
+Collecting seaborn==0.11.2
+  Downloading seaborn-0.11.2-py3-none-any.whl (292 kB)
+Requirement already satisfied: urllib3==1.26.8 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from -r requirements.txt (line 9)) (1.26.8)
+Requirement already satisfied: pyparsing>=2.2.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->-r requirements.txt (line 2)) (3.0.7)
+Collecting pillow>=6.2.0
+  Downloading Pillow-9.0.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.3 MB)
+Collecting kiwisolver>=1.0.1
+  Downloading kiwisolver-1.3.2-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl (1.1 MB)
+Requirement already satisfied: packaging>=20.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->-r requirements.txt (line 2)) (21.3)
+Collecting fonttools>=4.22.0
+  Downloading fonttools-4.29.1-py3-none-any.whl (895 kB)
+Requirement already satisfied: python-dateutil>=2.7 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->-r requirements.txt (line 2)) (2.8.2)
+Collecting cycler>=0.10
+  Downloading cycler-0.11.0-py3-none-any.whl (6.4 kB)
+Requirement already satisfied: traitlets in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib-inline==0.1.3->-r requirements.txt (line 3)) (5.1.1)
+Requirement already satisfied: tornado in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbgitpuller==1.0.2->-r requirements.txt (line 4)) (6.1)
+Requirement already satisfied: jupyter-server>=1.10.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbgitpuller==1.0.2->-r requirements.txt (line 4)) (1.13.4)
+Requirement already satisfied: notebook>=5.5.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbgitpuller==1.0.2->-r requirements.txt (line 4)) (6.3.0)
+Requirement already satisfied: pytz>=2017.3 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from pandas==1.3.5->-r requirements.txt (line 6)) (2021.3)
+Collecting scipy>=1.1.0
+  Downloading scipy-1.7.3-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (38.1 MB)
+Collecting joblib>=0.11
+  Downloading joblib-1.1.0-py2.py3-none-any.whl (306 kB)
+Collecting threadpoolctl>=2.0.0
+  Downloading threadpoolctl-3.1.0-py3-none-any.whl (14 kB)
+Requirement already satisfied: nbformat in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (5.1.3)
+Requirement already satisfied: jinja2 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (3.0.3)
+Requirement already satisfied: anyio<4,>=3.1.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (3.5.0)
+Requirement already satisfied: websocket-client in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (1.2.3)
+Requirement already satisfied: pyzmq>=17 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (22.3.0)
+Requirement already satisfied: jupyter-client>=6.1.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (7.1.2)
+Requirement already satisfied: ipython-genutils in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.2.0)
+Requirement already satisfied: Send2Trash in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (1.8.0)
+Requirement already satisfied: argon2-cffi in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (21.3.0)
+Requirement already satisfied: prometheus-client in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.13.0)
+Requirement already satisfied: jupyter-core>=4.6.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (4.9.1)
+Requirement already satisfied: terminado>=0.8.3 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.12.1)
+Requirement already satisfied: nbconvert in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (6.0.7)
+Requirement already satisfied: ipykernel in /srv/conda/envs/notebook/lib/python3.7/site-packages (from notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (6.7.0)
+Requirement already satisfied: six>=1.5 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from python-dateutil>=2.7->matplotlib==3.5.1->-r requirements.txt (line 2)) (1.16.0)
+Requirement already satisfied: typing-extensions in /srv/conda/envs/notebook/lib/python3.7/site-packages (from anyio<4,>=3.1.0->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (4.0.1)
+Requirement already satisfied: sniffio>=1.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from anyio<4,>=3.1.0->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (1.2.0)
+Requirement already satisfied: idna>=2.8 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from anyio<4,>=3.1.0->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (3.3)
+Requirement already satisfied: entrypoints in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-client>=6.1.1->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.3)
+Requirement already satisfied: nest-asyncio>=1.5 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-client>=6.1.1->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (1.5.4)
+Requirement already satisfied: ptyprocess in /srv/conda/envs/notebook/lib/python3.7/site-packages (from terminado>=0.8.3->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.7.0)
+Requirement already satisfied: argon2-cffi-bindings in /srv/conda/envs/notebook/lib/python3.7/site-packages (from argon2-cffi->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (21.2.0)
+Requirement already satisfied: debugpy<2.0,>=1.0.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (1.5.1)
+Requirement already satisfied: ipython>=7.23.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (7.31.1)
+Requirement already satisfied: MarkupSafe>=2.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jinja2->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (2.0.1)
+Requirement already satisfied: mistune<2,>=0.8.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.8.4)
+Requirement already satisfied: nbclient<0.6.0,>=0.5.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.5.10)
+Requirement already satisfied: testpath in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.5.0)
+Requirement already satisfied: bleach in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (4.1.0)
+Requirement already satisfied: jupyterlab-pygments in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.1.2)
+Requirement already satisfied: pygments>=2.4.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (2.11.2)
+Requirement already satisfied: defusedxml in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.7.1)
+Requirement already satisfied: pandocfilters>=1.4.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (1.5.0)
+Requirement already satisfied: jsonschema!=2.5.0,>=2.4 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (4.4.0)
+Requirement already satisfied: pexpect>4.3 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (4.8.0)
+Requirement already satisfied: setuptools>=18.5 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (60.5.0)
+Requirement already satisfied: decorator in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (5.1.1)
+Requirement already satisfied: jedi>=0.16 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.18.1)
+Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (3.0.24)
+Requirement already satisfied: pickleshare in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.7.5)
+Requirement already satisfied: backcall in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.2.0)
+Requirement already satisfied: importlib-metadata in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (4.10.1)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.18.1)
+Requirement already satisfied: attrs>=17.4.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (21.4.0)
+Requirement already satisfied: importlib-resources>=1.4.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (5.4.0)
+Requirement already satisfied: cffi>=1.0.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from argon2-cffi-bindings->argon2-cffi->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (1.15.0)
+Requirement already satisfied: webencodings in /srv/conda/envs/notebook/lib/python3.7/site-packages (from bleach->nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.5.1)
+Requirement already satisfied: pycparser in /srv/conda/envs/notebook/lib/python3.7/site-packages (from cffi>=1.0.1->argon2-cffi-bindings->argon2-cffi->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (2.21)
+Requirement already satisfied: zipp>=3.1.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from importlib-resources>=1.4.0->jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (3.7.0)
+Requirement already satisfied: parso<0.9.0,>=0.8.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jedi>=0.16->ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.8.3)
+Requirement already satisfied: wcwidth in /srv/conda/envs/notebook/lib/python3.7/site-packages (from prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0->ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->-r requirements.txt (line 4)) (0.2.5)
+Installing collected packages: pillow, numpy, kiwisolver, fonttools, cycler, threadpoolctl, scipy, pandas, matplotlib, joblib, seaborn, scikit-learn, nbgitpuller
+Successfully installed cycler-0.11.0 fonttools-4.29.1 joblib-1.1.0 kiwisolver-1.3.2 matplotlib-3.5.1 nbgitpuller-1.0.2 numpy-1.21.5 pandas-1.3.5 pillow-9.0.1 scikit-learn-1.0.2 scipy-1.7.3 seaborn-0.11.2 threadpoolctl-3.1.0
+Removing intermediate container 7a04a0bfa784
+ ---> e442865fbb0f
+Step 43/52 : RUN ${KERNEL_PYTHON_PREFIX}/bin/pip install --no-cache-dir .
+ ---> Running in 7b8a840f34e9
+Processing /home/jovyan
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: jupyter-offlinenotebook==0.2.2 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (0.2.2)
+Requirement already satisfied: matplotlib==3.5.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (3.5.1)
+Requirement already satisfied: matplotlib-inline==0.1.3 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (0.1.3)
+Requirement already satisfied: nbgitpuller==1.0.2 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (1.0.2)
+Requirement already satisfied: numpy==1.21.5 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (1.21.5)
+Requirement already satisfied: pandas==1.3.5 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (1.3.5)
+Requirement already satisfied: scikit-learn==1.0.2 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (1.0.2)
+Requirement already satisfied: seaborn==0.11.2 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (0.11.2)
+Requirement already satisfied: urllib3==1.26.8 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from WagonIntroToDS==1.0) (1.26.8)
+Requirement already satisfied: packaging>=20.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->WagonIntroToDS==1.0) (21.3)
+Requirement already satisfied: python-dateutil>=2.7 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->WagonIntroToDS==1.0) (2.8.2)
+Requirement already satisfied: pyparsing>=2.2.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->WagonIntroToDS==1.0) (3.0.7)
+Requirement already satisfied: pillow>=6.2.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->WagonIntroToDS==1.0) (9.0.1)
+Requirement already satisfied: cycler>=0.10 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->WagonIntroToDS==1.0) (0.11.0)
+Requirement already satisfied: fonttools>=4.22.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->WagonIntroToDS==1.0) (4.29.1)
+Requirement already satisfied: kiwisolver>=1.0.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib==3.5.1->WagonIntroToDS==1.0) (1.3.2)
+Requirement already satisfied: traitlets in /srv/conda/envs/notebook/lib/python3.7/site-packages (from matplotlib-inline==0.1.3->WagonIntroToDS==1.0) (5.1.1)
+Requirement already satisfied: jupyter-server>=1.10.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbgitpuller==1.0.2->WagonIntroToDS==1.0) (1.13.4)
+Requirement already satisfied: tornado in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbgitpuller==1.0.2->WagonIntroToDS==1.0) (6.1)
+Requirement already satisfied: notebook>=5.5.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbgitpuller==1.0.2->WagonIntroToDS==1.0) (6.3.0)
+Requirement already satisfied: pytz>=2017.3 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from pandas==1.3.5->WagonIntroToDS==1.0) (2021.3)
+Requirement already satisfied: joblib>=0.11 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from scikit-learn==1.0.2->WagonIntroToDS==1.0) (1.1.0)
+Requirement already satisfied: threadpoolctl>=2.0.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from scikit-learn==1.0.2->WagonIntroToDS==1.0) (3.1.0)
+Requirement already satisfied: scipy>=1.1.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from scikit-learn==1.0.2->WagonIntroToDS==1.0) (1.7.3)
+Requirement already satisfied: Send2Trash in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (1.8.0)
+Requirement already satisfied: nbformat in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (5.1.3)
+Requirement already satisfied: terminado>=0.8.3 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.12.1)
+Requirement already satisfied: jupyter-core>=4.6.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (4.9.1)
+Requirement already satisfied: ipython-genutils in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.2.0)
+Requirement already satisfied: pyzmq>=17 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (22.3.0)
+Requirement already satisfied: jupyter-client>=6.1.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (7.1.2)
+Requirement already satisfied: websocket-client in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (1.2.3)
+Requirement already satisfied: anyio<4,>=3.1.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (3.5.0)
+Requirement already satisfied: nbconvert in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (6.0.7)
+Requirement already satisfied: prometheus-client in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.13.0)
+Requirement already satisfied: argon2-cffi in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (21.3.0)
+Requirement already satisfied: jinja2 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (3.0.3)
+Requirement already satisfied: ipykernel in /srv/conda/envs/notebook/lib/python3.7/site-packages (from notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (6.7.0)
+Requirement already satisfied: six>=1.5 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from python-dateutil>=2.7->matplotlib==3.5.1->WagonIntroToDS==1.0) (1.16.0)
+Requirement already satisfied: typing-extensions in /srv/conda/envs/notebook/lib/python3.7/site-packages (from anyio<4,>=3.1.0->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (4.0.1)
+Requirement already satisfied: sniffio>=1.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from anyio<4,>=3.1.0->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (1.2.0)
+Requirement already satisfied: idna>=2.8 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from anyio<4,>=3.1.0->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (3.3)
+Requirement already satisfied: entrypoints in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-client>=6.1.1->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.3)
+Requirement already satisfied: nest-asyncio>=1.5 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jupyter-client>=6.1.1->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (1.5.4)
+Requirement already satisfied: ptyprocess in /srv/conda/envs/notebook/lib/python3.7/site-packages (from terminado>=0.8.3->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.7.0)
+Requirement already satisfied: argon2-cffi-bindings in /srv/conda/envs/notebook/lib/python3.7/site-packages (from argon2-cffi->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (21.2.0)
+Requirement already satisfied: debugpy<2.0,>=1.0.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (1.5.1)
+Requirement already satisfied: ipython>=7.23.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (7.31.1)
+Requirement already satisfied: MarkupSafe>=2.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jinja2->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (2.0.1)
+Requirement already satisfied: defusedxml in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.7.1)
+Requirement already satisfied: bleach in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (4.1.0)
+Requirement already satisfied: pygments>=2.4.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (2.11.2)
+Requirement already satisfied: pandocfilters>=1.4.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (1.5.0)
+Requirement already satisfied: mistune<2,>=0.8.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.8.4)
+Requirement already satisfied: testpath in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.5.0)
+Requirement already satisfied: nbclient<0.6.0,>=0.5.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.5.10)
+Requirement already satisfied: jupyterlab-pygments in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.1.2)
+Requirement already satisfied: jsonschema!=2.5.0,>=2.4 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (4.4.0)
+Requirement already satisfied: pexpect>4.3 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (4.8.0)
+Requirement already satisfied: pickleshare in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.7.5)
+Requirement already satisfied: jedi>=0.16 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.18.1)
+Requirement already satisfied: decorator in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (5.1.1)
+Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (3.0.24)
+Requirement already satisfied: backcall in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.2.0)
+Requirement already satisfied: setuptools>=18.5 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (60.5.0)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.18.1)
+Requirement already satisfied: importlib-resources>=1.4.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (5.4.0)
+Requirement already satisfied: attrs>=17.4.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (21.4.0)
+Requirement already satisfied: importlib-metadata in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (4.10.1)
+Requirement already satisfied: cffi>=1.0.1 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from argon2-cffi-bindings->argon2-cffi->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (1.15.0)
+Requirement already satisfied: webencodings in /srv/conda/envs/notebook/lib/python3.7/site-packages (from bleach->nbconvert->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.5.1)
+Requirement already satisfied: pycparser in /srv/conda/envs/notebook/lib/python3.7/site-packages (from cffi>=1.0.1->argon2-cffi-bindings->argon2-cffi->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (2.21)
+Requirement already satisfied: zipp>=3.1.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from importlib-resources>=1.4.0->jsonschema!=2.5.0,>=2.4->nbformat->jupyter-server>=1.10.1->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (3.7.0)
+Requirement already satisfied: parso<0.9.0,>=0.8.0 in /srv/conda/envs/notebook/lib/python3.7/site-packages (from jedi>=0.16->ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.8.3)
+Requirement already satisfied: wcwidth in /srv/conda/envs/notebook/lib/python3.7/site-packages (from prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0->ipython>=7.23.1->ipykernel->notebook>=5.5.0->nbgitpuller==1.0.2->WagonIntroToDS==1.0) (0.2.5)
+Building wheels for collected packages: WagonIntroToDS
+  Building wheel for WagonIntroToDS (setup.py): started
+  Building wheel for WagonIntroToDS (setup.py): finished with status 'done'
+  Created wheel for WagonIntroToDS: filename=WagonIntroToDS-1.0-py3-none-any.whl size=2004 sha256=307645e454b7ca0482f51e461de4936e82a95bb05c37634bdd2c77de9a2f8252
+  Stored in directory: /tmp/pip-ephem-wheel-cache-2eck9gf3/wheels/24/67/61/461d47532c7e3b6048f03e8f0e3c2ddb1976b17163d48f9fe9
+Successfully built WagonIntroToDS
+Installing collected packages: WagonIntroToDS
+Successfully installed WagonIntroToDS-1.0
+Removing intermediate container 7b8a840f34e9
+ ---> 4f599f69a701
+Step 44/52 : LABEL repo2docker.ref="23720f346d130833cdf77ef553ec28d60fae5012"
+ ---> Running in ed7c27e3f428
+Removing intermediate container ed7c27e3f428
+ ---> 9b7ac76b97cc
+Step 45/52 : LABEL repo2docker.repo="https://github.com/lewagon/intro-to-data-science-env"
+ ---> Running in 3fdef4cf83cc
+Removing intermediate container 3fdef4cf83cc
+ ---> 36ed4303c328
+Step 46/52 : LABEL repo2docker.version="2021.08.0+136.g47ea95a"
+ ---> Running in 6bc5308e83bc
+Removing intermediate container 6bc5308e83bc
+ ---> 254110d3cb32
+Step 47/52 : USER ${NB_USER}
+ ---> Running in d2ebdb8abdd3
+Removing intermediate container d2ebdb8abdd3
+ ---> 61ee88568483
+Step 48/52 : ENV PYTHONUNBUFFERED=1
+ ---> Running in bd195298b580
+Removing intermediate container bd195298b580
+ ---> a61d73d2cb63
+Step 49/52 : COPY /python3-login /usr/local/bin/python3-login
+ ---> c83d6677118c
+Step 50/52 : COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+ ---> b04ffc31135e
+Step 51/52 : ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
+ ---> Running in e996891da820
+Removing intermediate container e996891da820
+ ---> c9295399c9d6
+Step 52/52 : CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
+ ---> Running in 42afc705ba69
+Removing intermediate container 42afc705ba69
+ ---> 709482dcd701
+{"aux": {"ID": "sha256:709482dcd701e2b13b02562638b82297e8881a6a9b6421355de0d68e9dd0c655"}}Successfully built 709482dcd701
+Successfully tagged gcr.io/binderhub-288415/r2d-staging-g5b5b759-lewagon-2dintro-2dto-2ddata-2dscience-2denv-15e806:23720f346d130833cdf77ef553ec28d60fae5012
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Successfully pushed gcr.io/binderhub-288415/r2d-staging-g5b5b759-lewagon-2dintro-2dto-2ddata-2dscience-2denv-15e806:23720f346d130833cdf77ef553ec28d60fae5012Built image, launching...
+Launching server...
+Server requested
+2022-02-04T12:29:16.873104Z [Normal] Successfully assigned prod/jupyter-lewagon-2dintro-2dt-2data-2dscience-2denv-2dck5ia09h to gke-prod-user-202201-0769dbf8-nncr
+2022-02-04T12:29:17Z [Normal] Container image "jupyterhub/mybinder.org-tc-init:2020.12.4-n655.hfe65496" already present on machine
+2022-02-04T12:29:17Z [Normal] Created container tc-init
+2022-02-04T12:29:17Z [Normal] Started container tc-init
+2022-02-04T12:29:18Z [Normal] Pulling image "gcr.io/binderhub-288415/r2d-staging-g5b5b759-lewagon-2dintro-2dto-2ddata-2dscience-2denv-15e806:23720f346d130833cdf77ef553ec28d60fae5012"
+2022-02-04T12:29:26Z [Normal] Successfully pulled image "gcr.io/binderhub-288415/r2d-staging-g5b5b759-lewagon-2dintro-2dto-2ddata-2dscience-2denv-15e806:23720f346d130833cdf77ef553ec28d60fae5012" in 8.26035823s
+2022-02-04T12:29:26Z [Normal] Created container notebook
+2022-02-04T12:29:26Z [Normal] Started container notebook

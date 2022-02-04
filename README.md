@@ -16,3 +16,7 @@ export PACKAGES=$(curl -s ${REQ_URL} | tr "\\n" " ")
 pip install $(echo ${PACKAGES})
 pip freeze | grep $(echo ${$(echo ${PACKAGES})/#/-e }) > requirements.txt
 ```
+
+# info
+
+`build.log` contains the mybinder image build and container start logs
