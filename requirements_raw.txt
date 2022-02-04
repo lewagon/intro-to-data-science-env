@@ -1,0 +1,8 @@
+nbgitpuller
+jupyter-offlinenotebook
+numpy
+pandas
+matplotlib
+seaborn
+sklearn
+urllib3
