@@ -8,9 +8,9 @@ the challenges are served through [mybinder](https://www.notion.so/lewagon/B2U-I
 update the contents of `requirements_raw.txt`, then process `requirements.txt` from a new env:
 
 ``` bash
-pyenv install 3.7.12
+pyenv install 3.12.0
 pyenv virtualenv-delete binder
-pyenv virtualenv 3.7.12 binder
+pyenv virtualenv 3.12.0 binder
 pyenv local binder
 pip install -U pip
 export REQ_URL=https://raw.githubusercontent.com/lewagon/intro-to-data-science-env/master/requirements_raw.txt

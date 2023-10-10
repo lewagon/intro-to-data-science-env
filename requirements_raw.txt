@@ -3,6 +3,7 @@ jupyter-offlinenotebook
 numpy
 pandas
 matplotlib
+matplotlib-inline
 seaborn
 scikit-learn
 urllib3
