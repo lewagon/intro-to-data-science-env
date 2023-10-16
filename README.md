@@ -1,7 +1,5 @@
 
-this repo is not useful anymore since the [challenge repo](https://github.com/lewagon/intro-to-data-science-challenges/pull/8) hosts the requirements intepreted by mybinder and is self contained
-
-# deprecated
+this repo is used even though the [challenge repo](https://github.com/lewagon/intro-to-data-science-challenges/pull/8) hosts the requirements intepreted by mybinder to be self contained
 
 setup environment for the [Introduction to Data Science](https://github.com/lewagon/intro-to-data-science-challenges) challenges
 
